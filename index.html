@@ -161,6 +161,33 @@ for (let i = 0; i < 130; i++) {
 
 }
 
+/* ===================== LOAD BUSH IMAGE ===================== */
+const bushImages = [];
+
+for (let i = 1; i <= 3; i++) {
+    const img = new Image();
+    img.src = `assets/bush${i}.png`;
+    bushImages.push(img);
+}
+    
+/* ===================== BUSHES ===================== */
+const bushes = [];
+
+for (let i = 0; i < 80; i++) {
+
+    bushes.push({
+        x: Math.random() * w,
+        y: h - Math.random() * 80,
+
+        scale: Math.random() * 0.5 + 0.5,
+
+        imageIndex: Math.floor(
+            Math.random() * bushImages.length
+        ),
+
+        offset: Math.random() * Math.PI * 2
+});
+
 /* ===================== WIND ===================== */
 function updateWind() {
     wind += (Math.random() - 0.5) * 0.03;
@@ -187,6 +214,38 @@ function drawTrees(time) {
 
         ctx.drawImage(
             img,
+            -width / 2,
+            -height,
+            width,
+            height
+        );
+
+        ctx.restore();
+    }
+}
+
+/* ===================== DRAW BUSHES (IMAGE) ===================== */
+function drawBushes(time) {
+
+    for (let b of bushes) {
+
+        const sway =
+            Math.sin(time * 0.001 + b.offset) * 3;
+
+        const width = 120 * b.scale;
+        const height = 80 * b.scale;
+
+        ctx.save();
+
+        ctx.translate(
+            b.x,
+            b.y
+        );
+
+        ctx.rotate(sway * 0.01);
+
+        ctx.drawImage(
+            bushImages[b.imageIndex],
             -width / 2,
             -height,
             width,
@@ -232,6 +291,7 @@ function animate(time) {
     updateWind();
 
     drawTrees(time);
+    drawBushes(time);
     drawRain();
 
     requestAnimationFrame(animate);
