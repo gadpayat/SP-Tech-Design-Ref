@@ -124,14 +124,6 @@ let w, h;
 function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-
-    trees.forEach(t => {
-        t.baseY = h - Math.random() * 100;
-    });
-
-    bushes.forEach(b => {
-        b.y = h - Math.random() * 80;
-    });
 }
 window.addEventListener("resize", resize);
 resize();
@@ -241,39 +233,6 @@ function drawTrees(time) {
         ctx.restore();
     }
 }
-
-/* ===================== DRAW BUSHES (IMAGE) ===================== */
-function drawBushes(time) {
-
-    for (let b of bushes) {
-
-        const sway =
-            Math.sin(time * 0.001 + b.offset) * 3;
-
-        const width = 120 * b.scale;
-        const height = 80 * b.scale;
-
-        ctx.save();
-
-        ctx.translate(
-            b.x,
-            b.y
-        );
-
-        ctx.rotate(sway * 0.01);
-
-        ctx.drawImage(
-            bushImages[b.imageIndex],
-            -width / 2,
-            -height,
-            width,
-            height
-        );
-
-        ctx.restore();
-    }
-}
-
 
 /* ===================== DRAW BUSHES (IMAGE) ===================== */
 function drawBushes(time) {
