@@ -213,18 +213,67 @@ function updateWind() {
 }
 
 /* ===================== DRAW TREES (IMAGE) ===================== */
-function drawTrees(time){
-    ctx.fillStyle = "green";
+function drawTrees(time) {
+    for (let t of trees) {
+        const sway = Math.sin(time * 0.001 + t.offset) * (10 + wind * 12);
 
-    for(let i=0;i<50;i++){
-        ctx.fillRect(
-            Math.random()*w,
-            h-150,
-            30,
-            100
+        const width = 200 * t.scale;
+        const height = 250 * t.scale;
+
+        ctx.save();
+
+        // move anchor to base of tree
+        ctx.translate(t.x, t.baseY);
+
+        // wind sway rotation
+        ctx.rotate(sway * 0.01);
+
+        const img = treeImages[t.imageIndex];
+
+        ctx.drawImage(
+            img,
+            -width / 2,
+            -height,
+            width,
+            height
         );
+
+        ctx.restore();
     }
 }
+
+/* ===================== DRAW BUSHES (IMAGE) ===================== */
+function drawBushes(time) {
+
+    for (let b of bushes) {
+
+        const sway =
+            Math.sin(time * 0.001 + b.offset) * 3;
+
+        const width = 120 * b.scale;
+        const height = 80 * b.scale;
+
+        ctx.save();
+
+        ctx.translate(
+            b.x,
+            b.y
+        );
+
+        ctx.rotate(sway * 0.01);
+
+        ctx.drawImage(
+            bushImages[b.imageIndex],
+            -width / 2,
+            -height,
+            width,
+            height
+        );
+
+        ctx.restore();
+    }
+}
+
 
 /* ===================== DRAW BUSHES (IMAGE) ===================== */
 function drawBushes(time) {
