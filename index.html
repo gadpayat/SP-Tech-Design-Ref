@@ -124,6 +124,14 @@ let w, h;
 function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
+
+    trees.forEach(t => {
+        t.baseY = h - Math.random() * 100;
+    });
+
+    bushes.forEach(b => {
+        b.y = h - Math.random() * 80;
+    });
 }
 window.addEventListener("resize", resize);
 resize();
