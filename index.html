@@ -36,6 +36,7 @@ header {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 40px;
+    padding-bottom: 50px;
     max-width: 1200px;
     margin: auto;
 }
@@ -61,10 +62,10 @@ button:hover {
 /* FOOTER */
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     background: rgba(0,0,0,0.5);
     position: fixed;
-    bottom: 15px;
+    bottom: 0;
     width: 100%;
 }
 </style>
@@ -285,11 +286,11 @@ function animate(time) {
 
     // sky gradient
     const grad = ctx.createLinearGradient(0, 0, 0, h);
-    grad.addColorStop(0, "rgba(0,40,30,0.15)");
-    grad.addColorStop(1, "rgba(0,10,10,0.25)");
+    grad.addColorStop(0, "rgba(0,40,30,0.3)");
+    grad.addColorStop(1, "rgba(0,10,10,0.5)");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
-    
+
     updateWind();
 
     drawTrees(time);
